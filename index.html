@@ -1,11 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Basic site for jorgenson112358</title>
+    <style>
+        :root {
+            --surf: #eaf1fa;
+            --surf-bkg: rgb(241,248,253);
+            --shallow-water: #8bc7dc;
+            --deep-water: #386c85;
+            --volcanic-rock: #504f4a;
+            --trees: #3f5622;
+        }
+        body {
+            background-color: var(--surf-bkg);
+        }
+
+        .page__header {
+            background-color: var(--deep-water);
+            color: var(--surf);
+            font-size: 2rem;
+            text-align: center;
+            margin: 0;
+            padding: .5rem;
+            border-radius: .5rem;
+        }
+
+        .page__text {
+            margin: 0;
+            font-size: 48px;
+        }
+
+        .widgets {
+            display: grid;
+        }
+
+        @media screen and (min-width: 768px) {
+            .widgets {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .form-lbl {
+            display: block;
+        }
+
+        .btn {
+            background-color: var(--shallow-water);
+            color: var(--volcanic-rock);
+            padding: .5rem;
+            border-radius: .5rem;
+
+        }
+
+        .days__result {
+            width: 250px;
+            word-wrap: anywhere;
+        }
+    </style>
 </head>
+
 <body>
-    <p>hey world, is this on?</p>
+    <header class="page__header">
+        <h1 class="page__text">hey world, is this on?</h1>
+    </header>
+    <main class="page">
+        <p>My repositories are a random collection of ideas, widgets, projects and things that catch my eye.
+            Most of it is hacked together either as some sort of experiment or learning so probably
+            is a lot of ugly code. So maybe copy any of it with a really critical eye.</p>
+        <div class="widgets">
+            <section class="panel">
+                <h2>
+                    Days added
+                </h2>
+                <div>
+                    <div>
+                        <label class="form-lbl" for="start-date">Start Date</label>
+                        <input id="start-date" type="text" placeholder="YYYY-MM-DD" />
+                    </div>
+                    <div>
+                        <label class="form-lbl" for="days-added">How many days?</label>
+                        <input id="days-added" type="text" placeholder="42" />
+                    </div>
+                    <button type="button" onclick="window.daycalc.addDays();" class="btn">
+                        Calculate days later
+                    </button>
+
+                    <div class="days__result">
+                        <p id="days-later"></p>
+                    </div>
+                </div>
+            </section>
+            <section class="panel">
+                <h2>
+                    Bike speed calculator
+                </h2>
+                <div>
+                    <label class="form-lbl">Distance (miles)</label>
+                    <input type="text" id="distance" placeholder="in miles" />
+                </div>
+                <div>
+                    <label class="form-lbl">Time</label>
+                    <input type="text" id="time" placeholder="hh:mm:ss" />
+                </div>
+                <button type="button" onclick="window.bikes.calcSpeed();" class="btn">
+                    Calculate average speed
+                </button>
+                <p>
+                    Results
+                </p>
+                <div id="results">
+
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.13/dayjs.min.js"
+        integrity="sha512-FwNWaxyfy2XlEINoSnZh1JQ5TRRtGow0D6XcmAWmYCRgvqOUTnzCxPc9uF35u5ZEpirk1uhlPVA19tflhvnW1g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        window.bikes = window.bikes || {};
+        window.bikes.calcSpeed = window.bikes.calcSpeed || function () {
+            const distance = document.getElementById('distance').value;
+            const time = document.getElementById('time').value;
+
+            const timeParts = time.split(':');
+            if (timeParts.length !== 3) {
+                const output = document.getElementById('results');
+                output.textContent = 'Time is wrong, needs hh:mm:ss (ex. 00:35:01 for 35 minutes and 1 second)';
+                return;
+            }
+
+
+            const totalHours = parseInt(timeParts[0], 10)
+                + (parseInt(timeParts[1], 10) / 60.0)
+                + (parseInt(timeParts[2], 10) / 60.0 / 60.0);
+
+            console.log(totalHours);
+
+            const avgSpeed = (distance / totalHours).toFixed(2);
+            const output = document.getElementById('results');
+            output.textContent = 'The average speed is ' + avgSpeed + ' mph.';
+
+        };
+
+        window.daycalc = window.daycalc || {};
+        window.daycalc.addDays = window.daycalc.addDays || function () {
+            const startDate = document.getElementById('start-date').value;
+            const daysCount = document.getElementById('days-added').value;
+            const daysCountLater = parseInt(daysCount, 10) - 1;
+
+            const endDate = dayjs(startDate).add(daysCountLater, 'day').format('ddd MMM DD, YYYY');
+
+            const output = document.getElementById('days-later');
+            output.textContent = 'If day 1 is ' + dayjs(startDate).format('ddd MMM DD, YYYY') + ' then ' + daysCount + ' days later is ' + endDate + '.';
+
+        }
+    </script>
 </body>
+
 </html>
