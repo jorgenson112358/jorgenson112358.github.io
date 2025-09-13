@@ -5,16 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>How to make espresso</title>
     <style>
+        :root {
+            --light: #DFB78C;
+            --medium: #AB6832;
+            --dark: #49281A;
+        }
+
+        .espresso {
+            background-color: var(--light);
+        }
+
+        .espresso-title {
+            color: var(--dark);
+        }
+        .espresso-section {
+            color: var(--medium);
+        }
+
         .espresso-step {
             border-bottom: 2px solid #390808;
             padding: 1.5rem;
         }
+        .nav {
+            border: 1px solid #000;
+            border-radius: .5rem;
+            padding: 1rem;
+            display: inline-block;
+            margin-right: 1rem;
+            cursor: pointer;
+            background-color: var(--medium);
+            font-size: 1.2rem;
+        }
+        .nav a:visited {
+            color: var(--dark);
+        }
     </style>
 </head>
-<body> 
-    <h1>How to make espresso</h1>
+<body class="espresso"> 
+    <h1  class="espresso-title">How to make espresso</h1>
+    <div class="nav">
+        <a href="#espresso">Start here and make a double-shot of espresso</a>
+    </div>
+    <div class="nav">
+        <a href="#americano">Recipe: Americano</a>
+    </div>
+    <div class="nav">
+        <a href="#long-black">Recipe: Long Black</a>
+    </div>
 
-    <h2>Double-shot of espresso</h2>
+    <h2 id="espresso" class="espresso-section">Double-shot of espresso</h2>
     <ol>
         <li class="espresso-step">Check the water level in the water container on the back of the espresso machine, add some if it doesn't look like there's at least a cup.</li>
         <li class="espresso-step">Turn on the scale with the white dish on the scale. Turning it on will tare it to 0 grams.</li>
@@ -33,9 +72,9 @@
         <li class="espresso-step">Place a coffee mug under the portafilter and press the "double mug" button. 18 grams of espresso equates out to a double shot so you want it to run long enough to extract for a double shot.</li>
     </ol>
     <p>That's it! You've made a double-shot of espresso. To fancy it up into a specific espresso drink, here are some options:</p>
-    <h2><a href="#americano">Americano</a></h2>
+    <h2 id="americano">Americano</h2>
     <p>Take the mug with the espresso in it and place it under the "wand" on the right side of the machine. Obviously make sure the wand is in or pointed into the mug. Press the water dispensing button (icon with two drops of water) on the machine. This will take a second as it starts heating the water then dispense it. You can let it run to the end and it will auto-stop. But you can also stop it at any time by pressing the water button a second time.</p>
-    <h2><a href="#long-black">Long black</a></h2>
+    <h2 id="long-black">Long black</h2>
     <p>The darker, bolder New Zealand cousin to the Americano. This uses much less water, about 6 ounces.</p>
 </body>
 </html>
